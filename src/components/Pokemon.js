@@ -35,8 +35,7 @@ function Axios() {
         <img src={not_available} alt="show" />
       )}
       <br />
-      <button onClick={randomPokemon}>Random Pokemon</button>
-
+      <button onClick={randomPokemon}>RANDOM POKEMON</button>
       <br />
       <Link to="/">go back to Home</Link>
     </div>
