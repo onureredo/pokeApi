@@ -6,19 +6,23 @@ import not_available from "../assets/images/not_found.png";
 function Axios() {
   const [pokemon, setPokemon] = useState([]);
   const [pokemonId, setPokemonId] = useState(Math.floor(Math.random() * 100));
+  const [previousPokemonId, setPreviousPokemonId] = useState(null);
 
   useEffect(() => {
     axios
       .get(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
       .then((response) => {
-        // console.log(response);
         setPokemon(response.data);
       });
   }, [pokemonId]);
 
   const randomPokemon = () => {
-    const randomId = Math.floor(Math.random() * 1000);
-    setPokemonId(randomId);
+    setPreviousPokemonId(pokemonId);
+    setPokemonId(Math.floor(Math.random() * 1000));
+  };
+
+  const previousPokemon = () => {
+    setPokemonId(previousPokemonId);
   };
 
   return (
@@ -31,10 +35,12 @@ function Axios() {
           alt={pokemon.name}
         />
       ) : (
-        // <h3>NO IMAGE FOUND</h3>
         <img src={not_available} alt="show" />
       )}
       <br />
+      {previousPokemonId !== null ? (
+        <button onClick={previousPokemon}>PREVIOUS POKEMON</button>
+      ) : null}
       <button onClick={randomPokemon}>RANDOM POKEMON</button>
       <br />
       <Link to="/">go back to Home</Link>
